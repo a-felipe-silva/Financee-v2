@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import config from "../database/config";
+import path from "path";
 
 export default class BaseRepository {
   sequelizeClient: Sequelize;
@@ -12,10 +13,11 @@ export default class BaseRepository {
       database: config.db.database,
       username: config.db.username,
       password: config.db.password,
-      models: [__dirname + "/src/data/models"],
+      models: [path.resolve("src", "data", "models")],
       modelMatch: (filename, member) => {
         return filename.toLowerCase() === member.toLocaleLowerCase();
       },
+      logging: console.log,
     });
   }
 }
