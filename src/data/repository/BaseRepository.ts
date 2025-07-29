@@ -1,12 +1,12 @@
 import { Sequelize } from "sequelize-typescript";
-import config from "../../config";
+import config from "../database/config";
 
 export default class BaseRepository {
   sequelizeClient: Sequelize;
 
   constructor() {
     this.sequelizeClient = new Sequelize({
-      dialect: "postgres",
+      dialect: config.db.dialect,
       host: config.db.host,
       port: config.db.port,
       database: config.db.database,

@@ -6,7 +6,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "migrate": "node -r dotenv/config migrate up",
+    "migrate:rollback": "node -r dotenv/config migrate down",
+    "migration:create": "node -r dotenv/config migrate create"
   },
   "keywords": [],
   "author": "",
@@ -14,12 +17,14 @@
   "description": "",
   "dependencies": {
     "dotenv": "^17.2.0",
+    "dotenv-cli": "^9.0.0",
     "express": "^5.1.0",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.7",
-    "sequelize-typescript": "^2.1.6"
+    "sequelize-typescript": "^2.1.6",
+    "umzug": "^3.8.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
