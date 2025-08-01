@@ -1,2 +1,21 @@
 ### Default request
 GET http://localhost:3000
+
+###Register request
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+    "name": "Felipe Silva",
+    "email": "teste124@gmail.com",
+    "password": "Abcd@1234"
+}
+
+###Login request
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "email": "teste3@gmail.com",
+    "password": "Abcd@1234"
+}
