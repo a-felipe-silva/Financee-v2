@@ -19,3 +19,7 @@ Content-Type: application/json
     "email": "teste3@gmail.com",
     "password": "Abcd@1234"
 }
+
+###Auth test
+GET http://localhost:3000/test/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlM0BnbWFpbC5jb20iLCJ2IjoxLCJpYXQiOjE3NTQ2NzEwMjQsImV4cCI6MTc1NDY3NDYyNCwic3ViIjoiZjMzMmY0MjktMGUwYS00OGVmLTk0YmYtYzYwNTIxMThhZDUyIn0.NnfJfzfmBxTn6IeU_pIvcCpwxvhyejJmtru-Gk14v7w
