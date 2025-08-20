@@ -16,6 +16,7 @@ export const up: Migration = async (params: { context: Sequelize }) => {
         model: "users",
         key: "id",
       },
+      allowNull: false,
     },
     name: DataType.STRING(100),
     createdAt: {
@@ -43,6 +44,7 @@ export const up: Migration = async (params: { context: Sequelize }) => {
           model: "users",
           key: "id",
         },
+        allowNull: false,
       },
       categoryId: {
         type: DataType.INTEGER,
@@ -52,10 +54,14 @@ export const up: Migration = async (params: { context: Sequelize }) => {
         },
       },
       description: DataType.STRING(300),
-      amount: DataType.DECIMAL(10, 2),
+      amount: {
+        type: DataType.DECIMAL(10, 2),
+        allowNull: false,
+      },
       date: {
         type: DataType.DATE,
         defaultValue: DataType.NOW,
+        allowNull: false,
       },
       createdAt: {
         type: DataType.DATE,
