@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import userRouter from "./routes/User.router";
-import testRouter from "./routes/Test.router";
+import expensesRouter from "./routes/Expenses.router";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/user", userRouter);
-app.use("/test", testRouter);
+app.use("/expenses", expensesRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiSpecification));
 
 app.get("/", (req: Request, res: Response) => {
