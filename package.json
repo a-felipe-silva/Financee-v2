@@ -9,7 +9,10 @@
     "start": "node dist/index.js",
     "migrate": "node -r dotenv/config migrate up",
     "migrate:rollback": "node -r dotenv/config migrate down",
-    "migration:create": "node -r dotenv/config migrate create"
+    "migration:create": "node -r dotenv/config migrate create",
+    "seed": "node -r dotenv/config seed up",
+    "seed:rollback": "node -r dotenv/config seed down",
+    "seed:create": "node -r dotenv/config seed create"
   },
   "keywords": [],
   "author": "",
