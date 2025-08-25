@@ -20,6 +20,34 @@ Content-Type: application/json
     "password": "Password@123"
 }
 
-###Auth test
+###List expenses
 GET http://localhost:3000/expenses?startDate=2025-08-01&endDate=2025-08-03
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYwNjEwMDYsImV4cCI6MTc1NjA2NDYwNiwic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.YiXuTjc0NWxbp22tCgtsztsaU1uUBvPv6PbAZyWYG6k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYxMTg0NjcsImV4cCI6MTc1NjEyMjA2Nywic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.F9zbQaSsIBTJtuuxn6KxyE5MtsJqi40pvYH4UFWTCnQ
+
+###List expense categories
+GET http://localhost:3000/expenses/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYxMTg0NjcsImV4cCI6MTc1NjEyMjA2Nywic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.F9zbQaSsIBTJtuuxn6KxyE5MtsJqi40pvYH4UFWTCnQ
+
+###Create expense
+POST http://localhost:3000/expenses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYxMTg0NjcsImV4cCI6MTc1NjEyMjA2Nywic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.F9zbQaSsIBTJtuuxn6KxyE5MtsJqi40pvYH4UFWTCnQ
+Content-Type: application/json
+
+{
+    "description": "Steam promotion weekend.",
+    "amount": "40.20",
+    "date": "2025-08-24",
+    "categoryId": 232
+}
+
+###Change expense
+PUT http://localhost:3000/expenses/e58230b0-186b-468c-9864-54ea24f728be
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYxMjIyMDQsImV4cCI6MTc1NjEyNTgwNCwic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.kJxvCnCwb_N0pGSR6d0yiv9CDryzGBtqwmHyT6u4u0s
+Content-Type: application/json
+
+{
+    "description": "Steam.",
+    "amount": "122.2",
+    "date": "2025-08-30",
+    "categoryId": null
+}

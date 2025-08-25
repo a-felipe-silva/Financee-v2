@@ -1,18 +1,25 @@
 import express from "express";
 import { requireAuth } from "../middlewares/requireAuth";
-import { listExpenses } from "../controllers/Expenses.controller";
+import {
+  changeExpense,
+  createExpense,
+  listCategories,
+  listExpenses,
+} from "../controllers/Expenses.controller";
+import { validateExpenseCreation } from "../middlewares/validateExpenseCreation";
+import { validateExpenseChange } from "../middlewares/validateExpenseChange";
 
 const expensesRouter = express.Router();
 
-/**
- * @openapi
- * /auth:
- *  get:
- *    description: Test the authentication.
- *    responses:
- *      200:
- *        description: User is authenticated.
- */
-expensesRouter.route("/").get(requireAuth, listExpenses);
+expensesRouter.route("/categories").get(requireAuth, listCategories);
+
+expensesRouter
+  .route("/")
+  .get(requireAuth, listExpenses)
+  .post(requireAuth, validateExpenseCreation, createExpense);
+
+expensesRouter
+  .route("/:id")
+  .put(requireAuth, validateExpenseChange, changeExpense);
 
 export default expensesRouter;

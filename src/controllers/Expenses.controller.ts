@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { validationResult } from "express-validator";
+import { matchedData, validationResult } from "express-validator";
 import { Expense } from "../data/models/Expense";
 import { ExpenseCategory } from "../data/models/ExpenseCategory";
 import { InferAttributes, Op, WhereOptions } from "sequelize";
+import { error } from "console";
 
 function parseDate(value: unknown): Date | null {
   if (!value) return null;
@@ -54,6 +55,105 @@ export async function listExpenses(req: Request, res: Response) {
         },
       })),
     });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function createExpense(req: Request, res: Response) {
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    res.status(400).json({ errors: result.array() });
+    return;
+  }
+
+  const data = matchedData(req);
+
+  if (!req.user) {
+    res.status(401).json({ error: "User is not authenticated." });
+    return;
+  }
+
+  try {
+    const newExpense = await Expense.create({
+      description: data.description,
+      amount: data.amount,
+      date: data.date,
+      categoryId: data?.categoryId,
+      userId: req.user.id,
+    });
+
+    res.status(201).json({
+      id: newExpense.id,
+      description: newExpense.description,
+      amount: newExpense.amount,
+      date: newExpense.date,
+      categoryId: newExpense.categoryId,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function changeExpense(req: Request, res: Response) {
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    res.status(400).json({ errors: result.array() });
+    return;
+  }
+
+  const data = matchedData(req);
+
+  try {
+    const expenseId = req.params.id;
+
+    const expense = await Expense.findOne({ where: { id: expenseId } });
+
+    if (!expense) {
+      res.status(404).json({ error: "Expense does not exist." });
+      return;
+    }
+
+    if (data.description) expense.description = data.description;
+
+    if (data.amount) expense.amount = data.amount;
+
+    if (data.date) expense.date = data.date;
+
+    if (data.categoryId !== undefined) expense.categoryId = data.categoryId;
+
+    console.log(data.categoryId);
+
+    await expense.save();
+
+    res.status(200).json({
+      id: expense.id,
+      description: expense.description,
+      amount: expense.amount,
+      date: expense.date,
+      categoryId: expense.categoryId,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function listCategories(req: Request, res: Response) {
+  try {
+    const categories = await ExpenseCategory.findAll({
+      where: {
+        userId: req.user?.id,
+      },
+    });
+
+    res.status(200).json(
+      categories.map((c) => ({
+        id: c.id,
+        name: c.name,
+      }))
+    );
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
