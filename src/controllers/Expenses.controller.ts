@@ -10,6 +10,19 @@ function parseDate(value: unknown): Date | null {
   return isNaN(date.getTime()) ? null : date;
 }
 
+function formatExpense(expense: Expense) {
+  return {
+    id: expense.id,
+    description: expense.description,
+    amount: expense.amount,
+    date: expense.date,
+    category: {
+      id: expense.categoryId,
+      name: expense.category?.name ?? null,
+    },
+  };
+}
+
 export async function listExpenses(req: Request, res: Response) {
   const { startDate, endDate } = req.query;
   const start = parseDate(startDate);
@@ -43,16 +56,7 @@ export async function listExpenses(req: Request, res: Response) {
     });
 
     res.status(200).json({
-      expenses: expenses.map((e) => ({
-        id: e.id,
-        description: e.description,
-        amount: e.amount,
-        date: e.date,
-        category: {
-          id: e.categoryId,
-          name: e.category?.name,
-        },
-      })),
+      expenses: expenses.map(formatExpense),
     });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -79,17 +83,21 @@ export async function createExpense(req: Request, res: Response) {
       description: data.description,
       amount: data.amount,
       date: data.date,
-      categoryId: data?.categoryId,
+      categoryId: data.categoryId,
       userId: req.user.id,
     });
 
-    res.status(201).json({
-      id: newExpense.id,
-      description: newExpense.description,
-      amount: newExpense.amount,
-      date: newExpense.date,
-      categoryId: newExpense.categoryId,
+    const expenseWithCategory = await Expense.findByPk(newExpense.id, {
+      include: [ExpenseCategory],
     });
+
+    res
+      .status(201)
+      .json(
+        expenseWithCategory
+          ? formatExpense(expenseWithCategory)
+          : formatExpense(newExpense)
+      );
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -108,7 +116,9 @@ export async function changeExpense(req: Request, res: Response) {
   try {
     const expenseId = req.params.id;
 
-    const expense = await Expense.findOne({ where: { id: expenseId } });
+    const expense = await Expense.findOne({
+      where: { id: expenseId },
+    });
 
     if (!expense) {
       res.status(404).json({ error: "Expense does not exist." });
@@ -127,13 +137,15 @@ export async function changeExpense(req: Request, res: Response) {
 
     await expense.save();
 
-    res.status(200).json({
-      id: expense.id,
-      description: expense.description,
-      amount: expense.amount,
-      date: expense.date,
-      categoryId: expense.categoryId,
+    const updatedExpense = await Expense.findByPk(expense.id, {
+      include: [ExpenseCategory],
     });
+
+    res
+      .status(200)
+      .json(
+        updatedExpense ? formatExpense(updatedExpense) : formatExpense(expense)
+      );
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
