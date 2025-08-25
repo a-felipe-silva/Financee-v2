@@ -3,6 +3,7 @@ import { requireAuth } from "../middlewares/requireAuth";
 import {
   changeExpense,
   createExpense,
+  deleteExpense,
   listCategories,
   listExpenses,
 } from "../controllers/Expenses.controller";
@@ -20,6 +21,7 @@ expensesRouter
 
 expensesRouter
   .route("/:id")
-  .put(requireAuth, validateExpenseChange, changeExpense);
+  .put(requireAuth, validateExpenseChange, changeExpense)
+  .delete(requireAuth, deleteExpense);
 
 export default expensesRouter;

@@ -30,7 +30,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlL
 
 ###Create expense
 POST http://localhost:3000/expenses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYxMTg0NjcsImV4cCI6MTc1NjEyMjA2Nywic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.F9zbQaSsIBTJtuuxn6KxyE5MtsJqi40pvYH4UFWTCnQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYxMjIyMDQsImV4cCI6MTc1NjEyNTgwNCwic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.kJxvCnCwb_N0pGSR6d0yiv9CDryzGBtqwmHyT6u4u0s
 Content-Type: application/json
 
 {
@@ -51,3 +51,7 @@ Content-Type: application/json
     "date": "2025-08-30",
     "categoryId": null
 }
+
+###Delete expense
+DELETE http://localhost:3000/expenses/4b0162c4-9f1b-4ba1-b570-6aadc698cdcc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTYxMjIyMDQsImV4cCI6MTc1NjEyNTgwNCwic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.kJxvCnCwb_N0pGSR6d0yiv9CDryzGBtqwmHyT6u4u0s

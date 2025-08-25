@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { Expense } from "../data/models/Expense";
 import { ExpenseCategory } from "../data/models/ExpenseCategory";
-import { InferAttributes, Op, WhereOptions } from "sequelize";
-import { error } from "console";
+import { Op, WhereOptions } from "sequelize";
 
 function parseDate(value: unknown): Date | null {
   if (!value) return null;
@@ -135,6 +134,25 @@ export async function changeExpense(req: Request, res: Response) {
       date: expense.date,
       categoryId: expense.categoryId,
     });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function deleteExpense(req: Request, res: Response) {
+  try {
+    const expenseId = req.params.id;
+
+    const expense = await Expense.findOne({ where: { id: expenseId } });
+
+    if (!expense) {
+      res.status(404).json({ error: "Expense does not exist." });
+      return;
+    }
+
+    await expense.destroy();
+
+    res.sendStatus(204);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
