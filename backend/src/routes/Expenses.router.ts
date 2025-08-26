@@ -67,7 +67,7 @@ expensesRouter.route("/categories").get(requireAuth, listCategories);
  *                   description:
  *                    type: string
  *                   amount:
- *                    type: number
+ *                    type: string
  *                   date:
  *                    type: string
  *                    format: date-time
@@ -97,7 +97,7 @@ expensesRouter.route("/categories").get(requireAuth, listCategories);
  *               description:
  *                 type: string
  *               amount:
- *                 type: number
+ *                 type: string
  *               date:
  *                 type: string
  *                 format: date-time
@@ -116,7 +116,7 @@ expensesRouter.route("/categories").get(requireAuth, listCategories);
  *                 description:
  *                   type: string
  *                 amount:
- *                   type: number
+ *                   type: string
  *                 date:
  *                   type: string
  *                   format: date-time
@@ -157,12 +157,13 @@ expensesRouter
  *               description:
  *                 type: string
  *               amount:
- *                 type: number
+ *                 type: string
  *               date:
  *                 type: string
  *                 format: date-time
  *               categoryId:
  *                 type: integer
+ *                 nullable: true
  *     responses:
  *       200:
  *         description: Expense updated successfully
@@ -176,7 +177,7 @@ expensesRouter
  *                 description:
  *                   type: string
  *                 amount:
- *                   type: number
+ *                   type: string
  *                 date:
  *                   type: string
  *                   format: date-time
