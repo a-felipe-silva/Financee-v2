@@ -1,70 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 @import "tailwindcss";
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@theme {
+  --color-primary: #090040;   /* Principal */
+  --color-primary-dark: #471396;    /* Tom secundário da primária */
+  --color-primary-accent: #B13BFF;    /* Destaque roxo */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --color-secondary: #FFCC00;    /* Secundária */
+  --color-secondary-dark: #CC9900;    /* Tom escuro da secundária */
+  --color-secondary-accent: #FFE066;    /* Tom mais claro da secundária */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-background: #F9F9FB;    /* Fundo geral da aplicação */
+  --color-surface: #FFFFFF;    /* Fundo de cards / elementos destacados */
+  --color-border: #E0E0E6;    /* Bordas e divisores */
+
+  --color-text: #1A1A1A;    /* Texto padrão */
+  --color-text-muted: #6B6B76;    /* Texto secundário */
+  --color-text-on-primary: #FFFFFF;    /* Texto sobre elementos primários */
+  --color-text-on-secondary: #1A1A1A;    /* Texto sobre elementos secundários */
+
+  --color-success: #2ECC71;    /* Verde de sucesso */
+  --color-warning: #FFCC00;    /* Amarelo de atenção */
+  --color-error: #E74C3C;    /* Vermelho de erro */
+
+  --color-primary-hover: #471396;    /* Hover do botão primário */
+  --color-secondary-hover: #e6b800;    /* Hover do secundário */
+  --color-surface-hover: #F3F3F7;    /* Hover em cards */
+
+  --color-shadow: rgba(9, 0, 64, 0.25);
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Montserrat', system-ui, sans-serif;
+  --font-primary: "IBM Plex Sans", sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+#root.dark {
+
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  background-color: var(--color-background);
 }
