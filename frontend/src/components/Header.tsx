@@ -8,7 +8,7 @@ export default function Header() {
           
           <div className="flex flex-row gap-6 items-center">
             <Export className="h-8 w-auto text-primary hover:text-primary-hover" />
-            <Button text="+ Import Statement - AI" />
+            <Button text="Import Statement - AI" />
             <Button text="+ Add Expense" />
           </div>
     </div>

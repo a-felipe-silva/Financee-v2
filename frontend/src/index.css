@@ -24,8 +24,13 @@
   --color-error: #E74C3C;    /* Vermelho de erro */
 
   --color-primary-hover: #471396;    /* Hover do botão primário */
+  --color-primary-accent-hover: #9a2fd9;    /* Tom mais escuro do roxo */
   --color-secondary-hover: #e6b800;    /* Hover do secundário */
   --color-surface-hover: #F3F3F7;    /* Hover em cards */
+
+  --color-success-hover: #27ae60;    /* Verde mais escuro */
+  --color-warning-hover: #e6b800;    /* Amarelo mais escuro */
+  --color-error-hover: #c0392b;    /* Vermelho mais escuro */
 
   --color-shadow: rgba(9, 0, 64, 0.25);
 
