@@ -13,6 +13,7 @@
   --color-background: #F9F9FB;    /* Fundo geral da aplicação */
   --color-surface: #FFFFFF;    /* Fundo de cards / elementos destacados */
   --color-border: #E0E0E6;    /* Bordas e divisores */
+  --color-border-selected: #B0B0C0;    /* Cinza mais forte, discreto */
 
   --color-text: #1A1A1A;    /* Texto padrão */
   --color-text-muted: #6B6B76;    /* Texto secundário */
