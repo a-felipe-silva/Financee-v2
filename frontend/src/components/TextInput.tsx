@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent } from "react";
 import Button from "./Button";
 
-interface InputProps {
+export interface TextInputProps {
   id?: string;
   label: string;
   placeholder?: string;
@@ -17,7 +17,7 @@ export default function TextInput({
   value,
   onTextChange,
   action,
-}: InputProps) {
+}: TextInputProps) {
   const [text, setText] = useState(value);
 
   function handleTextChange(e: ChangeEvent<HTMLInputElement>) {
@@ -40,7 +40,7 @@ export default function TextInput({
           onChange={handleTextChange}
           className="bg-background outline-none px-2 py-1 border-border text-2xl focus-visible:border-border-selected focus:border-border-selected border-3 rounded-sm placeholder:text-muted text-text font-sans grow"
         />
-        {action && <Button text="Add" shadow={false} />}
+        {action && <Button text="Add" shadow={false} className="font-bold" />}
       </div>
     </div>
   );

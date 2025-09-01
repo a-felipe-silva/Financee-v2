@@ -3,7 +3,7 @@ import IconButton from "./IconButton";
 import EditCardIcon from "../assets/edit-card.svg?react";
 import DeleteCardIcon from "../assets/delete-card.svg?react";
 import type { Expense } from "../types/Expense";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
 interface ExpenseCardProps {
   onEditExpenseClick(expense: Expense): void;
@@ -15,10 +15,10 @@ export default function ExpenseCard({ onEditExpenseClick }: ExpenseCardProps) {
     description: "Mock Description",
     amount: "R$25,34",
     category: {
-      id: 24,
+      id: 3,
       name: "Some Category",
     },
-    date: new Date(),
+    date: parse("15-02-2012", "dd-MM-yyyy", new Date()),
   };
 
   return (

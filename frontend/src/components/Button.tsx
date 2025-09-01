@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick?(): void;
   type?: ButtonType;
   shadow?: boolean;
+  className?: string | undefined;
 }
 
 export default function Button({
@@ -13,13 +14,15 @@ export default function Button({
   onClick,
   type = "primary",
   shadow = true,
+  className,
 }: ButtonProps) {
   return (
     <div
       className={twMerge(
         BUTTON_STYLES[type].background,
         shadow && "shadow-md/100 shadow-shadow",
-        "flex items-center h-fit p-3 rounded-lg transition-colors ease-in-out"
+        "flex items-center h-fit p-3 rounded-lg transition-colors ease-in-out",
+        className
       )}
       onClick={onClick}
     >
