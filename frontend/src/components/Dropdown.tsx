@@ -46,14 +46,14 @@ export default function Dropdown({
             id={id}
             value={selectedValue}
             onChange={handleValueChange}
-            className="bg-background outline-none px-2 py-1 border-border text-2xl focus-visible:border-border-selected focus:border-border-selected border-3 rounded-sm placeholder:text-text-muted text-text font-sans appearance-none w-full h-full"
+            className="bg-background outline-none px-2 py-1 border-border text-2xl focus-visible:border-border-selected focus:border-border-selected border-3 rounded-sm placeholder:text-muted text-text font-sans appearance-none w-full h-full"
           >
             <option value="">{placeHolder}</option>
             {options &&
               options.map((op) => <option value={op.value}>{op.text}</option>)}
           </select>
 
-          <ArrowDownIcon className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-3 text-text-muted" />
+          <ArrowDownIcon className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-3 text-muted" />
         </div>
         {onAddOption && (
           <IconButton

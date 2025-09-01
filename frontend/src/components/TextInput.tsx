@@ -34,7 +34,7 @@ export default function TextInput({
         placeholder={placeholder}
         value={text}
         onChange={handleTextChange}
-        className="bg-background outline-none px-2 py-1 border-border text-2xl focus-visible:border-border-selected focus:border-border-selected border-3 rounded-sm placeholder:text-text-muted text-text font-sans"
+        className="bg-background outline-none px-2 py-1 border-border text-2xl focus-visible:border-border-selected focus:border-border-selected border-3 rounded-sm placeholder:text-muted text-text font-sans"
       />
     </div>
   );
