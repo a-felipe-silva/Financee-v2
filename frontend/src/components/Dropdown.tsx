@@ -15,7 +15,7 @@ interface DropdownProps {
   placeHolder?: string;
   label?: string;
   onValueChange?(value: string): void;
-  onAddOption?(): void;
+  action?(): void;
 }
 
 export default function Dropdown({
@@ -25,7 +25,7 @@ export default function Dropdown({
   placeHolder = "Select an option",
   label,
   onValueChange,
-  onAddOption,
+  action,
 }: DropdownProps) {
   const [selectedValue, setSelectedValue] = useState(selected);
 
@@ -55,12 +55,13 @@ export default function Dropdown({
 
           <ArrowDownIcon className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-3 text-muted" />
         </div>
-        {onAddOption && (
+        {action && (
           <IconButton
             Icon={PlusIcon}
             type="primary"
-            className="w-[42px] aspect-square"
+            className="w-[42px]"
             iconClassName="w-2/3 aspect-square"
+            onClick={action}
           />
         )}
       </div>

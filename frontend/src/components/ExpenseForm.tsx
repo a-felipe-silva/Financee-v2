@@ -2,6 +2,7 @@ import TextInput from "./TextInput";
 import CloseIcon from "../assets/close.svg?react";
 import type { Expense } from "../types/Expense";
 import Dropdown from "./Dropdown";
+import { useState } from "react";
 
 interface ExpenseFormProps {
   expense: Expense | null;
@@ -9,6 +10,8 @@ interface ExpenseFormProps {
 }
 
 export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
+  const [showAddCategory, setShowAddCategory] = useState(false);
+
   return (
     <div className="fixed left-0 top-0 w-full h-full bg-black/50">
       <div className="fixed left-1/2 top-1/2 -translate-1/2 px-12 py-14 w-1/2 max-w-[900px] rounded-xl bg-surface flex flex-col gap-6">
@@ -30,8 +33,19 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
             { value: "3", text: "Medications" },
           ]}
           placeHolder="No Category"
-          onAddOption={() => {}}
+          action={() => {
+            setShowAddCategory((old) => !old);
+          }}
         />
+        {showAddCategory && (
+          <div className="bg-surface border-border border-3 rounded-xl p-5">
+            <TextInput
+              label="New Category"
+              placeholder="Name"
+              action={() => {}}
+            />
+          </div>
+        )}
       </div>
       <CloseIcon
         className="fixed right-10 top-10 aspect-square h-6 w-auto text-surface hover:text-surface-hover"
