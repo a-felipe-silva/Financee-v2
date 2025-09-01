@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent } from "react";
 import ArrowDownIcon from "../assets/arrow-down.svg?react";
+import IconButton from "./IconButton";
+import PlusIcon from "../assets/plus.svg?react";
 
 interface DropdownOption {
   value: string;
@@ -13,6 +15,7 @@ interface DropdownProps {
   placeHolder?: string;
   label?: string;
   onValueChange?(value: string): void;
+  onAddOption?(): void;
 }
 
 export default function Dropdown({
@@ -22,6 +25,7 @@ export default function Dropdown({
   placeHolder = "Select an option",
   label,
   onValueChange,
+  onAddOption,
 }: DropdownProps) {
   const [selectedValue, setSelectedValue] = useState(selected);
 
@@ -36,19 +40,29 @@ export default function Dropdown({
       <label htmlFor={id} className="text-2xl text-text font-serif">
         {label}
       </label>
-      <div className="relative">
-        <select
-          id={id}
-          value={selectedValue}
-          onChange={handleValueChange}
-          className="bg-background outline-none px-2 py-1 border-border text-2xl focus-visible:border-border-selected focus:border-border-selected border-3 rounded-sm placeholder:text-text-muted text-text font-sans appearance-none w-full h-full"
-        >
-          <option value="">{placeHolder}</option>
-          {options &&
-            options.map((op) => <option value={op.value}>{op.text}</option>)}
-        </select>
+      <div className="flex flex-row items-stretch w-full gap-2">
+        <div className="relative grow">
+          <select
+            id={id}
+            value={selectedValue}
+            onChange={handleValueChange}
+            className="bg-background outline-none px-2 py-1 border-border text-2xl focus-visible:border-border-selected focus:border-border-selected border-3 rounded-sm placeholder:text-text-muted text-text font-sans appearance-none w-full h-full"
+          >
+            <option value="">{placeHolder}</option>
+            {options &&
+              options.map((op) => <option value={op.value}>{op.text}</option>)}
+          </select>
 
-        <ArrowDownIcon className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-3 text-text-muted" />
+          <ArrowDownIcon className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-3 text-text-muted" />
+        </div>
+        {onAddOption && (
+          <IconButton
+            Icon={PlusIcon}
+            type="primary"
+            className="w-[42px] aspect-square"
+            iconClassName="w-2/3 aspect-square"
+          />
+        )}
       </div>
     </div>
   );

@@ -1,11 +1,19 @@
-import type { FunctionComponent, SVGProps } from 'react';
+import type { FunctionComponent, SVGProps } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface IconButtonProps {
   onClick?(): void;
   Icon: FunctionComponent<
-    SVGProps<SVGSVGElement> & { title?: string, titleId?: string, desc?: string, descId?: string }
+    SVGProps<SVGSVGElement> & {
+      title?: string;
+      titleId?: string;
+      desc?: string;
+      descId?: string;
+    }
   >;
   type?: "primary" | "primary-accent" | "success" | "warning" | "error";
+  className?: string | undefined;
+  iconClassName?: string | undefined;
 }
 
 const bgMap = {
@@ -16,10 +24,27 @@ const bgMap = {
   error: "bg-error hover:bg-error-hover",
 } as const;
 
-export default function IconButton({ onClick, Icon, type = "primary-accent" }: IconButtonProps) {
+export default function IconButton({
+  onClick,
+  Icon,
+  type = "primary-accent",
+  className,
+  iconClassName,
+}: IconButtonProps) {
   return (
-    <div className={`${bgMap[type]} flex items-center w- h-fit rounded-lg transition-colors ease-in-out p-[0.35rem] aspect-square`} onClick={onClick}>
-          <Icon className="text-text-on-primary font-serif h-[1.2rem] w-fit"></Icon>      
+    <div
+      className={twMerge(
+        `${bgMap[type]} flex items-center justify-center rounded-lg transition-colors ease-in-out p-[0.35rem]`,
+        className
+      )}
+      onClick={onClick}
+    >
+      <Icon
+        className={twMerge(
+          "text-text-on-primary font-serif h-full w-full",
+          iconClassName
+        )}
+      ></Icon>
     </div>
-  )
+  );
 }

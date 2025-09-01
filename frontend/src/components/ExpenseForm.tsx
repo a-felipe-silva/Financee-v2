@@ -30,6 +30,7 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
             { value: "3", text: "Medications" },
           ]}
           placeHolder="No Category"
+          onAddOption={() => {}}
         />
       </div>
       <CloseIcon
