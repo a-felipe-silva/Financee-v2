@@ -16,7 +16,7 @@
   --color-border-selected: #B0B0C0;    /* Cinza mais forte, discreto */
 
   --color-text: #1A1A1A;    /* Texto padrão */
-  --color-text-muted: #6B6B76;    /* Texto secundário */
+  --color-muted: #6B6B76;    /* Texto secundário */
   --color-text-on-primary: #FFFFFF;    /* Texto sobre elementos primários */
   --color-text-on-secondary: #1A1A1A;    /* Texto sobre elementos secundários */
 
