@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useId, useState, type ChangeEvent } from "react";
 import Button from "./Button";
 
 export interface TextInputProps {
@@ -19,6 +19,8 @@ export default function TextInput({
   action,
 }: TextInputProps) {
   const [text, setText] = useState(value);
+  const autoId = useId();
+  const inputId = id || autoId;
 
   function handleTextChange(e: ChangeEvent<HTMLInputElement>) {
     const newText = e.target.value;
@@ -28,13 +30,13 @@ export default function TextInput({
 
   return (
     <div className="flex flex-col gap-2.5 text-base">
-      <label htmlFor={id} className="text-2xl text-text font-serif">
+      <label htmlFor={inputId} className="text-2xl text-text font-serif">
         {label}
       </label>
       <div className="flex flex-row items-stretch w-full gap-2">
         <input
           type="text"
-          id={id}
+          id={inputId}
           placeholder={placeholder}
           value={text}
           onChange={handleTextChange}

@@ -5,6 +5,7 @@ import Dropdown from "./Dropdown";
 import { useState } from "react";
 import DatepickerInput from "./DatepickerInput";
 import Button from "./Button";
+import { formatAmount } from "../utils/formatingUtils";
 
 interface ExpenseFormProps {
   expense: Expense | null;
@@ -29,7 +30,7 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
         />
         <TextInput
           label="Amount"
-          placeholder="R$0.00"
+          placeholder={formatAmount("0.00")}
           value={expense?.amount}
         />
         <Dropdown
@@ -40,7 +41,7 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
             { value: "3", text: "Some Category" },
           ]}
           selected={expense?.category?.id.toString()}
-          placeHolder="No Category"
+          placeholder="No Category"
           action={() => {
             setShowAddCategory((old) => !old);
           }}
@@ -57,6 +58,7 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
         <Button
           text={expense ? "Edit Expense" : "Add Expense"}
           className="w-fit self-center font-bold text-2xl"
+          shadow={false}
         />
       </div>
       <CloseIcon

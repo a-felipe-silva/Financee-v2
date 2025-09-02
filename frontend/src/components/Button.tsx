@@ -16,19 +16,20 @@ export default function Button({
   shadow = true,
   className,
 }: ButtonProps) {
+  const style = BUTTON_STYLES[type];
+
   return (
-    <div
+    <button
       className={twMerge(
-        BUTTON_STYLES[type].background,
-        shadow && "shadow-md/100 shadow-shadow",
         "flex items-center h-fit p-3 rounded-lg transition-colors ease-in-out",
+        shadow && "shadow-md/100 shadow-shadow",
+        style.background,
+        style.textColor,
         className
       )}
       onClick={onClick}
     >
-      <p className={twMerge(BUTTON_STYLES[type].textColor, "font-serif")}>
-        {text}
-      </p>
-    </div>
+      <p className="font-serif">{text}</p>
+    </button>
   );
 }

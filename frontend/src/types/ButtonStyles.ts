@@ -7,11 +7,11 @@ export type ButtonType =
   | "secondary";
 
 export interface ButtonStyle {
-  background?: string | undefined;
-  textColor?: string | undefined;
+  background: string;
+  textColor: string;
 }
 
-export const BUTTON_STYLES: Record<ButtonType, ButtonStyle> = {
+export const BUTTON_STYLES: Readonly<Record<ButtonType, ButtonStyle>> = {
   primary: {
     background: "bg-primary hover:bg-primary-hover",
     textColor: "text-text-on-primary",

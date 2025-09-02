@@ -4,6 +4,7 @@ import EditCardIcon from "../assets/edit-card.svg?react";
 import DeleteCardIcon from "../assets/delete-card.svg?react";
 import type { Expense } from "../types/Expense";
 import { format, parse } from "date-fns";
+import { formatAmount } from "../utils/formatingUtils";
 
 interface ExpenseCardProps {
   onEditExpenseClick(expense: Expense): void;
@@ -13,7 +14,7 @@ export default function ExpenseCard({ onEditExpenseClick }: ExpenseCardProps) {
   const expense = {
     id: "123456",
     description: "Mock Description",
-    amount: "R$25,34",
+    amount: "25.34",
     category: {
       id: 3,
       name: "Some Category",
@@ -27,7 +28,9 @@ export default function ExpenseCard({ onEditExpenseClick }: ExpenseCardProps) {
         <ExpenseCategoryLabel category={expense.category} />
         <p className="font-primary">{expense.description}</p>
         <div className="flex flex-col items-center">
-          <p className="font-primary text-2xl">{expense.amount}</p>
+          <p className="font-primary text-2xl">
+            {formatAmount(expense.amount)}
+          </p>
           <p className="font-primary text-xs">
             {format(expense.date, "dd-MM-yyyy")}
           </p>
@@ -38,11 +41,13 @@ export default function ExpenseCard({ onEditExpenseClick }: ExpenseCardProps) {
           Icon={EditCardIcon}
           onClick={() => onEditExpenseClick(expense)}
           className="h-8 aspect-square"
+          ariaLabel="Edit Card"
         />
         <IconButton
           Icon={DeleteCardIcon}
           type="error"
           className="h-8 aspect-square"
+          ariaLabel="Edit Card"
         />
       </div>
     </div>

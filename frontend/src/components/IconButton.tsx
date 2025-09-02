@@ -15,6 +15,7 @@ interface IconButtonProps {
   type?: ButtonType;
   className?: string | undefined;
   iconClassName?: string | undefined;
+  ariaLabel: string;
 }
 
 export default function IconButton({
@@ -23,23 +24,27 @@ export default function IconButton({
   type = "primary-accent",
   className,
   iconClassName,
+  ariaLabel,
 }: IconButtonProps) {
+  const style = BUTTON_STYLES[type];
+
   return (
-    <div
+    <button
       className={twMerge(
-        BUTTON_STYLES[type].background,
         "flex items-center justify-center rounded-lg transition-colors ease-in-out p-[0.35rem]",
+        style.background,
         className
       )}
       onClick={onClick}
+      aria-label={ariaLabel}
     >
       <Icon
         className={twMerge(
-          BUTTON_STYLES[type].textColor,
           "font-serif h-full w-full",
+          style.textColor,
           iconClassName
         )}
-      ></Icon>
-    </div>
+      />
+    </button>
   );
 }
