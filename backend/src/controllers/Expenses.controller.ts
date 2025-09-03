@@ -178,12 +178,12 @@ export async function listCategories(req: Request, res: Response) {
       },
     });
 
-    res.status(200).json(
-      categories.map((c) => ({
+    res.status(200).json({
+      categories: categories.map((c) => ({
         id: c.id,
         name: c.name,
-      }))
-    );
+      })),
+    });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

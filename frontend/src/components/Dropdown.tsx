@@ -4,6 +4,7 @@ import IconButton from "./IconButton";
 import PlusIcon from "../assets/plus.svg?react";
 
 interface DropdownOption {
+  key?: string;
   value: string;
   text: string;
 }
@@ -52,7 +53,11 @@ export default function Dropdown({
           >
             <option value="">{placeholder}</option>
             {options &&
-              options.map((op) => <option value={op.value}>{op.text}</option>)}
+              options.map((op) => (
+                <option key={op.key} value={op.value}>
+                  {op.text}
+                </option>
+              ))}
           </select>
 
           <ArrowDownIcon className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-3 text-muted" />

@@ -20,7 +20,7 @@ const JWT_SECRET =
 
 export function generateJwt(payload: PayloadParams): string {
   return jwt.sign({ email: payload.email, v: 1 }, JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "10W",
     subject: payload.id,
   });
 }

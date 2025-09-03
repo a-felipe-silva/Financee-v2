@@ -3,6 +3,7 @@ import userRouter from "./routes/User.router";
 import expensesRouter from "./routes/Expenses.router";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import cors from "cors";
 
 const openApiSpecification = swaggerJSDoc({
   failOnErrors: true, //Remove
@@ -18,6 +19,7 @@ const openApiSpecification = swaggerJSDoc({
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/user", userRouter);

@@ -34,14 +34,20 @@ const expensesRouter = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   name:
- *                     type: string
+ *               type: object
+ *               properties:
+ *                 categories:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         nullable: true
+ *                       name:
+ *                         type: string
+ *                         nullable: true
+ *
  */
 expensesRouter.route("/categories").get(requireAuth, listCategories);
 

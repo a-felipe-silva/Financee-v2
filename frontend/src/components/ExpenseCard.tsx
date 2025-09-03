@@ -7,24 +7,19 @@ import { format, parse } from "date-fns";
 import { formatAmount } from "../utils/formatingUtils";
 
 interface ExpenseCardProps {
-  onEditExpenseClick(expense: Expense): void;
+  expense: Expense;
+  onEdit?(expense: Expense): void;
+  onDelete?(expense: Expense): void;
 }
 
-export default function ExpenseCard({ onEditExpenseClick }: ExpenseCardProps) {
-  const expense = {
-    id: "123456",
-    description: "Mock Description",
-    amount: "25.34",
-    category: {
-      id: 3,
-      name: "Some Category",
-    },
-    date: parse("15-02-2012", "dd-MM-yyyy", new Date()),
-  };
-
+export default function ExpenseCard({
+  expense,
+  onEdit,
+  onDelete,
+}: ExpenseCardProps) {
   return (
     <div className="bg-surface border-3 border-border p-4 flex flex-row justify-between gap-6 shadow-md shadow-shadow rounded-lg">
-      <div className="flex flex-row justify-between items-center grow-1">
+      <div className="flex flex-row justify-between items-center grow">
         <ExpenseCategoryLabel category={expense.category} />
         <p className="font-primary">{expense.description}</p>
         <div className="flex flex-col items-center">
@@ -39,15 +34,17 @@ export default function ExpenseCard({ onEditExpenseClick }: ExpenseCardProps) {
       <div className="flex flex-col gap-1">
         <IconButton
           Icon={EditCardIcon}
-          onClick={() => onEditExpenseClick(expense)}
+          type="primary-accent"
+          onClick={() => onEdit?.(expense)}
           className="h-8 aspect-square"
           ariaLabel="Edit Card"
         />
         <IconButton
           Icon={DeleteCardIcon}
           type="error"
+          onClick={() => onDelete?.(expense)}
           className="h-8 aspect-square"
-          ariaLabel="Edit Card"
+          ariaLabel="Delete Card"
         />
       </div>
     </div>
