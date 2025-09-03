@@ -6,6 +6,7 @@ import { useState } from "react";
 import DatepickerInput from "./DatepickerInput";
 import Button from "./Button";
 import { formatAmount } from "../utils/formatingUtils";
+import MoneyInput from "./MoneyInput";
 
 interface ExpenseFormProps {
   expense: Expense | null;
@@ -28,10 +29,11 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
           label="Date"
           placeholder="00-00-0000"
         />
-        <TextInput
+        <MoneyInput
           label="Amount"
           placeholder={formatAmount("0.00")}
-          value={expense?.amount}
+          startValue={expense?.amount}
+          onChange={(v) => console.log(v)}
         />
         <Dropdown
           label="Category"

@@ -30,3 +30,7 @@
     background-color: var(--color-muted);
     color: var(--color-text-on-primary)
 }
+
+.react-datepicker__day--selected {
+    background-color: var(--color-secondary-dark);
+}
