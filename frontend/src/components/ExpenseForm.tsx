@@ -8,6 +8,7 @@ import Button from "./Button";
 import { formatAmount } from "../utils/formatingUtils";
 import MoneyInput from "./MoneyInput";
 import type { ExpenseCategory } from "../types/ExpenseCategory";
+import { format } from "date-fns";
 
 interface ExpenseFormProps {
   expense: Expense | null;
@@ -26,6 +27,9 @@ function parseCategoryResponse(category: any): ExpenseCategory {
 export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [categories, setCategories] = useState<ExpenseCategory[] | null>(null);
+  const [currentExpense, setCurrentExpense] = useState<Expense>(
+    expense ?? { id: "", amount: "", date: new Date(), description: "" }
+  );
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -44,24 +48,73 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
     fetchCategories();
   }, []);
 
+  async function handleFormSubmit() {
+    try {
+      const url =
+        "http://localhost:3000/expenses" +
+        (currentExpense.id ? `/${currentExpense.id}` : "");
+      const method = currentExpense.id ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWNlLmpvaG5zb25AZXhhbXBsZS5jb20iLCJ2IjoxLCJpYXQiOjE3NTY5MzQ4MTUsImV4cCI6MTc2Mjk4MjgxNSwic3ViIjoiMzE1MmRiZWItZDIyMi00NDdmLWExYmUtYTBlYzk1ZmI1YzUxIn0.kPitEN2w8chR7k8kUtOBMDrhF5heh9BNiI-zgQiuykw",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          description: currentExpense.description,
+          amount: currentExpense.amount,
+          date: format(currentExpense.date, "yyyy-MM-dd"),
+          categoryId: currentExpense.category?.id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw Error(
+          `Form request error: ${JSON.stringify({
+            status: response.status,
+            message: response.statusText,
+            body: await response.json(),
+          })}`
+        );
+      }
+
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="fixed left-0 top-0 w-full h-full bg-black/50">
       <div className="fixed left-1/2 top-1/2 -translate-1/2 px-12 py-12 w-1/2 max-w-[900px] rounded-xl bg-surface flex flex-col gap-6">
         <TextInput
           label="Description"
           placeholder="Expense Description"
-          value={expense?.description}
+          value={currentExpense.description}
+          onTextChange={(txt) =>
+            setCurrentExpense((prev) => ({ ...prev, description: txt }))
+          }
         />
         <DatepickerInput
-          value={expense?.date}
+          value={currentExpense.date}
           label="Date"
           placeholder="00-00-0000"
+          onDateChange={(date) =>
+            setCurrentExpense((prev) => ({
+              ...prev,
+              ...(date && { date }),
+            }))
+          }
         />
         <MoneyInput
           label="Amount"
           placeholder={formatAmount("0.00")}
-          startValue={expense?.amount}
-          onChange={(v) => console.log(v)}
+          startValue={currentExpense.amount}
+          onChange={(money) =>
+            setCurrentExpense((prev) => ({ ...prev, amount: money }))
+          }
         />
         <Dropdown
           label="Category"
@@ -70,10 +123,17 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
             value: c.id?.toString() ?? "",
             text: c.name ?? "",
           }))}
-          selected={expense?.category?.id?.toString()}
+          selected={currentExpense.category?.id?.toString()}
           placeholder="No Category"
           action={() => {
             setShowAddCategory((old) => !old);
+          }}
+          onValueChange={(value, text) => {
+            const categoryId = Number(value);
+            setCurrentExpense((prev) => ({
+              ...prev,
+              category: categoryId ? { id: categoryId, name: text } : undefined,
+            }));
           }}
         />
         {showAddCategory && (
@@ -86,9 +146,10 @@ export default function ExpenseForm({ expense, onClose }: ExpenseFormProps) {
           </div>
         )}
         <Button
-          text={expense ? "Edit Expense" : "Add Expense"}
+          text={currentExpense.id === "" ? "Add Expense" : "Edit Expense"}
           className="w-fit self-center font-bold text-2xl"
           shadow={false}
+          onClick={handleFormSubmit}
         />
       </div>
       <CloseIcon

@@ -15,7 +15,7 @@ interface DropdownProps {
   selected?: string;
   placeholder?: string;
   label?: string;
-  onValueChange?(value: string): void;
+  onValueChange?(value: string, text: string): void;
   action?(): void;
 }
 
@@ -35,7 +35,9 @@ export default function Dropdown({
   function handleValueChange(e: ChangeEvent<HTMLSelectElement>) {
     const newSelected = e.target.value;
     setSelectedValue(newSelected);
-    onValueChange?.(newSelected);
+
+    const selectedOptionText = e.target.options[e.target.selectedIndex].text;
+    onValueChange?.(newSelected, selectedOptionText);
   }
 
   return (
